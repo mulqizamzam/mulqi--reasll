@@ -52,6 +52,14 @@ The blank is `templates/parity-checklist.md`.
   80 behaviours. The fresh-eyes reviewer's job (review.md) is to find what the
   list missed; a candidate it finds is added by the operator, not silently.
 
+- **Two clean rounds mean two processes.** The second confirmation pass runs
+  from a fresh process and a fresh cache, or it re-tests the builder's memory
+  instead of the artifact. A pass that depends on state the builder left
+  behind is not a pass.
+- **A gap carries an id and a reason.** List every exclusion as `O<n>` with the
+  reason it is out. An exclusion without an id is an omission the operator will
+  find later and read as concealment.
+
 ## Deriving the list per product class
 
 ### Desktop or mobile application
