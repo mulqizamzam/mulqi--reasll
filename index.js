@@ -1,9 +1,13 @@
 /**
- * DSH skill provider for the "reverse-engineer-anything self-learning loop"
- * skill, ported from https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop
- * (MIT, Speedrun AI Labs). The instruction body and its references/templates are
- * shipped verbatim under assets/; this module only registers them with
- * `ctx.skills` so the agent can load the skill on demand.
+ * Mulqi ReaSLL — DSH skill provider for the "reverse-engineer-anything
+ * self-learning loop" skill, ported from
+ * https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop
+ * (MIT, Speedrun AI Labs, commit a0b4f1e).
+ *
+ * The instruction body and its references/templates are shipped verbatim under
+ * assets/; vendor/upstream/ keeps the complete upstream snapshot read-only.
+ * This module only registers the skill with `ctx.skills` so the agent can load
+ * it on demand. It adds no tools and overrides no host instruction.
  */
 
 import { readFile } from 'node:fs/promises'
@@ -31,7 +35,12 @@ const BUNDLED_SKILL_RANK = 600
 const DESCRIPTION =
   'Reverse Engineer Anything with a Self-Learning Loop: examine software you are authorised to analyse, build your own working equivalent, then review it against the original with evidence, plan the gaps, improve, and repeat until a written definition of 100% is met, learning from every iteration so the next product starts further along. Use for: rebuilding a product whose source is lost, a compatible replacement for a tool you license, a port to a new platform, finishing a reconstruction that stalled at 80%. Static-first, evidence-led, authorisation-gated; it builds its own design and never copies protected expression.'
 
-/** Metadata carried over from the source skill frontmatter. */
+/**
+ * Metadata carried over from the source skill frontmatter.
+ *
+ * `version` stays at the upstream skill release so the provenance of the
+ * instructions is unambiguous; `plugin` identifies this packaging instead.
+ */
 const METADATA = {
   version: '1.0.1',
   author: 'Speedrun AI Labs',
@@ -43,6 +52,12 @@ const METADATA = {
   ],
   upstream:
     'https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop',
+  upstreamCommit: 'a0b4f1ecff591100d207ddcc799bcb5bb769f031',
+  plugin: {
+    name: 'mulqi-reasll',
+    displayName: 'Mulqi ReaSLL',
+    version: '1.0.0',
+  },
 }
 
 const INVOCATION = { modelInvocable: true, userInvocable: true }

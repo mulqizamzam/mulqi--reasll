@@ -1,5 +1,4 @@
 node_modules/
 .tmp/
-.upstream/
 *.log
 .DS_Store

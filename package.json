@@ -1,20 +1,25 @@
 {
-  "name": "dsh-reasll",
-  "version": "1.0.1",
-  "description": "DSH skill plugin for reverse engineering with a self-learning loop: examine a product you are authorised to rebuild, build your own equivalent, review it against evidence, close the gaps, and repeat until a written 100% checklist passes.",
+  "name": "mulqi-reasll",
+  "version": "1.0.0",
+  "description": "Mulqi ReaSLL — DSH skill plugin for reverse engineering with a self-learning loop: examine a product you are authorised to rebuild, build your own equivalent, review it against evidence, close the gaps, and repeat until a written 100% checklist passes.",
   "type": "module",
   "main": "index.js",
   "exports": {
     ".": "./index.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./assets/*": "./assets/*",
+    "./vendor/upstream/*": "./vendor/upstream/*",
+    "./docs/*": "./docs/*",
     "./package.json": "./package.json"
   },
   "files": [
     "index.js",
     "assets/",
+    "vendor/upstream/",
+    "docs/",
     "cordis.patch.yml",
     "README.md",
+    "HOWTOUSE.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
@@ -27,7 +32,8 @@
     "skill",
     "reverse-engineering",
     "reconstruction",
-    "learning-loop"
+    "learning-loop",
+    "mulqi-reasll"
   ],
   "repository": {
     "type": "git",
@@ -47,6 +53,8 @@
     }
   },
   "scripts": {
-    "test": "node --test tests/"
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test tests/*.test.js",
+    "check": "node scripts/validate.mjs && node --test tests/*.test.js"
   }
 }
