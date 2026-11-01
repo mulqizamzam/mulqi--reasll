@@ -1,6 +1,6 @@
 {
   "schema": "mulqi-reasll/source-manifest@1",
-  "generatedFor": "Mulqi ReaSLL 1.0.0 (DeepSeek Harness 0.2.1-rc.2)",
+  "generatedFor": "Mulqi ReaSLL 1.0.1 (DeepSeek Harness 0.2.1-rc.2)",
   "upstream": {
     "repository": "https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop",
     "commit": "a0b4f1ecff591100d207ddcc799bcb5bb769f031",
@@ -146,7 +146,7 @@
     },
     {
       "path": "package.json",
-      "role": "Package manifest: name mulqi-reasll, version 1.0.0, dsh.bundle.patch, engines.dsh."
+      "role": "Package manifest: name mulqi-reasll, version 1.0.1, dsh.bundle.patch, engines.dsh."
     },
     {
       "path": "HOWTOUSE.md",
@@ -179,6 +179,12 @@
     {
       "path": "tests/manifest.test.js",
       "role": "Completeness test wrapper around scripts/validate.mjs."
+    },
+    {
+      "path": "assets/references/dsh-notes.md",
+      "role": "DSH port notes: additions written for this port, kept out of the upstream reference files so those stay byte-identical.",
+      "sha256": "8287201b299ebe74fd9ed7a966c80d70eefd193e7cdeb746101c233170591544",
+      "bytes": 2683
     }
   ],
   "exclusions": [],

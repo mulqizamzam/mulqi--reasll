@@ -125,10 +125,40 @@ async function main() {
   pass(`verbatim runtime copies: ${verbatim}`)
 
   // --- 5. no unaccounted asset ----------------------------------------------
+  // Upstream items claim assets/ through their targets; authored runtime files
+  // (written for this port) claim their own path and are hashed here so drift
+  // is caught the same way.
+  const authoredAssets = (manifest.authored ?? []).filter((entry) => entry.path?.startsWith('assets/'))
+  let authoredHashed = 0
+  for (const entry of authoredAssets) {
+    const file = join(ROOT, entry.path)
+    if (!existsSync(file)) {
+      fail(`authored asset is missing: ${entry.path}`)
+      continue
+    }
+    if (!entry.sha256) {
+      fail(`authored asset ${entry.path} needs a sha256`)
+      continue
+    }
+    const digest = await sha256(file)
+    if (digest !== entry.sha256) {
+      fail(`sha256 mismatch for ${entry.path}\n  manifest ${entry.sha256}\n  on disk  ${digest}`)
+      continue
+    }
+    const size = (await stat(file)).size
+    if (size !== entry.bytes) {
+      fail(`size mismatch for ${entry.path}: manifest ${entry.bytes}, on disk ${size}`)
+      continue
+    }
+    authoredHashed += 1
+  }
+  if (authoredAssets.length) pass(`authored runtime files verified: ${authoredHashed}/${authoredAssets.length}`)
+
   if (existsSync(ASSETS_DIR)) {
-    const accounted = new Set(
-      items.flatMap((item) => (item.targets ?? []).filter((t) => t.startsWith('assets/'))),
-    )
+    const accounted = new Set([
+      ...items.flatMap((item) => (item.targets ?? []).filter((t) => t.startsWith('assets/'))),
+      ...authoredAssets.map((entry) => entry.path),
+    ])
     for (const file of await listFiles(ASSETS_DIR)) {
       const repoPath = rel(file)
       if (!accounted.has(repoPath)) fail(`${repoPath} exists but no manifest item claims it`)
@@ -139,7 +169,7 @@ async function main() {
   // --- 6. package, patch and skill body agree --------------------------------
   const pkg = JSON.parse(await readFile(join(ROOT, 'package.json'), 'utf8'))
   if (pkg.name !== 'mulqi-reasll') fail(`package.json name must be mulqi-reasll, got ${pkg.name}`)
-  if (pkg.version !== '1.0.0') fail(`package.json version must be 1.0.0, got ${pkg.version}`)
+  if (pkg.version !== '1.0.1') fail(`package.json version must be 1.0.1, got ${pkg.version}`)
   if (!pkg.engines?.dsh) fail('package.json must declare engines.dsh')
   if (!pkg.dsh?.bundle?.patch) fail('package.json must declare dsh.bundle.patch')
 

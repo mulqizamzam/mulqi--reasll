@@ -62,10 +62,11 @@ are fully accounted for.
 | --- | --- |
 | `index.js` | Cordis plugin: registers the skill provider with `ctx.skills`, strips frontmatter at read time. |
 | `cordis.patch.yml` | Bundle patch that inserts the plugin row into a DSH profile layer. |
-| `package.json` | Package manifest: `mulqi-reasll` 1.0.0, `dsh.bundle.patch`, `engines.dsh`. |
+| `package.json` | Package manifest: `mulqi-reasll` 1.0.1, `dsh.bundle.patch`, `engines.dsh`. |
 | `HOWTOUSE.md` | Install and usage guide for both installation methods. |
 | `README.md` | Port overview in Indonesian; supersedes the upstream README for DSH users. |
 | `CHANGELOG.md` | Plugin release history, with upstream history preserved underneath. |
+| `assets/references/dsh-notes.md` | DSH port notes shipped under `assets/` so `resourceBase` can serve them. Newly written for this port, kept out of the upstream reference files so those stay byte-identical. Hashed in the manifest under `authored`. |
 | `AGENTS.md` | Repository agent rules (pre-existing). |
 | `docs/SOURCE-MANIFEST.md` | This document. |
 | `docs/source-manifest.json` | Machine-readable manifest enforced by the validator. |

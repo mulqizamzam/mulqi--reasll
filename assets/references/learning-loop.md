@@ -73,29 +73,6 @@ as done.
 - **Size:** `SKILL.md` stays under about 24,000 characters; depth lives in
   `references/`; more than a few dozen reference files is hoarding.
 
-## Proving a skill loads (DSH)
-
-When the target is a skill file and the build must be proven loadable, the
-discovery roots and their precedence are read from the loader, not guessed:
-
-- Rank order, lowest wins a name collision: `<project>/.dsh/skills` (100),
-  `<project>/.agents/skills` (200), custom dirs (300), `$DSH_HOME/skills` (400),
-  `~/.agents/skills` (500), bundled (600).
-- Frontmatter needs only `name` and `description`; unknown keys are ignored,
-  accepted extras are `whenToUse`, `disable-model-invocation`,
-  `user-invocable`, `metadata`. The name must match
-  `^[a-z0-9]+(?:-[a-z0-9]+)*$`.
-- A provider's candidates carry `name`, `description`, `invocation`, `provider`,
-  `source`, `resourceBase`, `rank`, `metadata`; `get()` returns the body with
-  the frontmatter already stripped.
-
-Install a test copy under `<project>/.dsh/skills/<name>/SKILL.md`: it outranks
-the user root and stays writable under a workspace-write sandbox, while
-`$DSH_HOME/skills` may be read-only. Prove the load with the session's own
-available-skills catalog listing the name, and with a fresh interpreter process
-that imports the provider — a pass inside the building process proves nothing
-about a cold start.
-
 ## Never capture
 
 - An environment failure (a missing tool, an unset credential, a broken

@@ -41,14 +41,6 @@ regression can be shown, not asserted.
   (`expected from evidence L-41`), and the fresh-eyes reviewer checks that the
   evidence actually supports the expectation.
 
-- **Verbatim reuse.** When the build must not copy protected expression,
-  compare by word n-gram against the source and report the **longest** shared
-  run, then read that run. An aggregate similarity score hides the one real
-  copy, and templates, code fences and tables are where copying hides: a
-  `step -> verify: check` block is reused text even when no prose sentence is.
-  Set the threshold in the checklist when the item is written, and fix the
-  template rather than lowering the threshold to pass.
-
 ## The fresh-eyes pass
 
 A reviewer that did not write the batch: a subagent with a clean context, or

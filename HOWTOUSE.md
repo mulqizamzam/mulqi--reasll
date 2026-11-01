@@ -1,6 +1,6 @@
 # HOWTOUSE — Mulqi ReaSLL
 
-Panduan pemasangan dan pemakaian plugin **Mulqi ReaSLL** (`mulqi-reasll` v1.0.0)
+Panduan pemasangan dan pemakaian plugin **Mulqi ReaSLL** (`mulqi-reasll` v1.0.1)
 di DeepSeek Harness **0.2.1-rc.2**.
 
 Plugin ini tidak menambah tool, tombol, atau perintah baru. Ia mendaftarkan satu

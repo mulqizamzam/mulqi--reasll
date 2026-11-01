@@ -2,6 +2,28 @@
 
 All notable changes to the Mulqi ReaSLL plugin.
 
+## 1.0.1 — 2026-11-01
+
+Repairs the byte-identity claim that 1.0.0 broke, without touching upstream text.
+
+`a79cfec` had appended DSH-specific notes directly into three `assets/references/`
+files (`learning-loop.md`, `parity-checklist.md`, `review.md`) while
+`vendor/upstream/` kept the pristine blobs. That made `scripts/validate.mjs`
+fail on three verbatim checks and made the CHANGELOG's "identical to the
+upstream blobs by sha256" claim untrue.
+
+### Fixed
+
+- Restored `assets/references/{learning-loop,parity-checklist,review}.md` to the
+  upstream blobs, so `verbatim runtime copies` is 10/10 again.
+- Moved those additions to `assets/references/dsh-notes.md`, which reproduces
+  each added block verbatim and states which upstream reference it extends.
+- Registered the new file in `docs/source-manifest.json` under `authored`, with
+  its sha256 and byte size.
+- `scripts/validate.mjs` now hashes authored runtime files and counts them as
+  claimed assets, so a future drift in `dsh-notes.md` fails the same way an
+  upstream file would.
+
 ## 1.0.0 — 2026-10-31
 
 Complete source preservation and DSH-native port, replacing the earlier

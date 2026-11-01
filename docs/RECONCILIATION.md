@@ -1,4 +1,4 @@
-# Reconciliation Report — Mulqi ReaSLL 1.0.0
+# Reconciliation Report — Mulqi ReaSLL 1.0.1
 
 Laporan ini menjawab satu pertanyaan: **apakah setiap item di repositori sumber
 sudah dipertanggungjawabkan?** Sumbernya adalah
@@ -16,7 +16,8 @@ Jalankan `npm run check` untuk mereproduksinya.
 | --- | --- |
 | Item sumber ditemukan | 13 |
 | Item dipertahankan byte-per-byte | 13 |
-| Item dieksekusi saat runtime (`assets/`) | 10 |
+| Item upstream dieksekusi saat runtime (`assets/`) | 10 |
+| File runtime tambahan (authored, `assets/`) | 1 |
 | Item referensi non-eksekusi (`vendor/upstream/`) | 13 |
 | Item ditransformasi isinya | 0 |
 | Item dihapus / dikecualikan | 0 |
@@ -57,7 +58,7 @@ tersebut. Repositori sumber memang hanya berisi skill Markdown.
 
 ## 3. Item yang dipertahankan
 
-### 3.1 Dieksekusi saat runtime — 10 item
+### 3.1 Dieksekusi saat runtime — 10 item upstream + 1 authored
 
 Kesepuluh file ini disalin ke `assets/` dan didaftarkan lewat `ctx.skills`.
 Isinya **identik byte-per-byte** dengan `vendor/upstream/`; validator
@@ -75,6 +76,11 @@ membandingkan sha256 keduanya.
 | `templates/iteration-plan.md` | 607 | Template rencana iterasi |
 | `templates/parity-checklist.md` | 1059 | Template checklist 100% |
 | `templates/run-ledger.md` | 1283 | Template ledger iterasi |
+
+Selain kesepuluh file di atas, `assets/references/dsh-notes.md` adalah file
+**authored** (2683 byte) yang ditulis untuk port ini. Ia tidak punya padanan di
+upstream dan karenanya tidak ikut perbandingan verbatim; hash-nya didaftarkan di
+manifest agar drift tetap tertangkap.
 
 Satu-satunya transformasi terjadi **saat baca**, bukan saat penyimpanan:
 `index.js` membuang blok frontmatter YAML di awal `SKILL.md` dan menyuplai
@@ -114,7 +120,7 @@ Tidak mengandung konten upstream.
 | --- | --- |
 | `index.js` | Plugin Cordis; registrasi provider skill |
 | `cordis.patch.yml` | Layer patch bundle |
-| `package.json` | Manifest paket `mulqi-reasll` 1.0.0 |
+| `package.json` | Manifest paket `mulqi-reasll` 1.0.1 |
 | `HOWTOUSE.md` | Panduan pasang dan pakai |
 | `README.md` | Ikhtisar port |
 | `CHANGELOG.md` | Riwayat rilis plugin |
@@ -160,7 +166,9 @@ Konsekuensi yang perlu dinyatakan eksplisit:
 3. **Target** — setiap path target yang dideklarasikan benar-benar ada.
 4. **Verbatim** — setiap item `executable` identik byte-per-byte antara
    `assets/` dan `vendor/upstream/`.
-5. **Tidak ada aset tak terklaim** — setiap file di `assets/` diklaim manifest.
+5. **Tidak ada aset tak terklaim** — setiap file di `assets/` diklaim manifest,
+   baik lewat `items[].targets` maupun lewat entri `authored[]` yang punya
+   `sha256`/`bytes` sendiri (hash-nya diverifikasi).
 6. **Konsistensi paket** — nama/versi paket, `engines.dsh`, `dsh.bundle.patch`,
    `files[]`, dan kesesuaian `name` di patch dengan nama paket.
 7. **Konsistensi skill** — id skill di frontmatter = `SKILL_NAME` di
@@ -174,7 +182,8 @@ ok   vendored snapshot: 13 files, all accounted for
 ok   hashes verified: 13/13
 ok   targets present: 24
 ok   verbatim runtime copies: 10
-ok   assets/ fully claimed: 10
+ok   authored runtime files verified: 1/1
+ok   assets/ fully claimed: 11
 ok   bundle patch resolves to the package
 ok   package files[] covers runtime, assets and docs
 ok   skill id consistent: reverse-engineer-anything-self-learning-loop
@@ -200,7 +209,7 @@ Tidak ada yang memblokir. Dua catatan yang perlu diketahui:
    dan dipertahankan demi kesetiaan. Pengguna memanggil skill lewat nama
    panjangnya, bukan lewat nama plugin.
 2. **Versi ganda.** `metadata.version` = `1.0.1` (rilis skill upstream),
-   `metadata.plugin.version` = `1.0.0` (kemasan DSH). Keduanya benar untuk
+   `metadata.plugin.version` = `1.0.1` (kemasan DSH). Keduanya benar untuk
    domainnya masing-masing dan tidak saling menggantikan.
 
 Di luar itu, tidak ada perbedaan perilaku yang diketahui antara skill sumber dan

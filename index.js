@@ -56,7 +56,7 @@ const METADATA = {
   plugin: {
     name: 'mulqi-reasll',
     displayName: 'Mulqi ReaSLL',
-    version: '1.0.0',
+    version: '1.0.1',
   },
 }
 

@@ -10,7 +10,7 @@ Port dari [Speedrunlab/reverse-engineer-anything-self-learning-loop](https://git
 | --- | --- |
 | Nama plugin | Mulqi ReaSLL |
 | Nama paket | `mulqi-reasll` |
-| Versi plugin | `1.0.0` |
+| Versi plugin | `1.0.1` |
 | Versi skill sumber | `1.0.1` (upstream) |
 | Nama skill terdaftar | `reverse-engineer-anything-self-learning-loop` |
 
@@ -154,7 +154,7 @@ mulqi-reasll/
 ├── LICENSE                     MIT (identik dengan lisensi upstream)
 ├── assets/                     Salinan runtime — dibaca saat ctx.skills.get()
 |   ├── SKILL.md
-|   ├── references/             examine, fix-recipes, learning-loop, parity-checklist, review
+|   ├── references/             examine, fix-recipes, learning-loop, parity-checklist, review, dsh-notes
 |   └── templates/              gap-report, iteration-plan, parity-checklist, run-ledger
 ├── vendor/upstream/            Provenance read-only — tidak pernah dieksekusi
 ├── docs/
