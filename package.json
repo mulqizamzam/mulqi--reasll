@@ -1,6 +1,6 @@
 {
   "name": "mulqi-reasll",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Mulqi ReaSLL — DSH skill plugin for reverse engineering with a self-learning loop: examine a product you are authorised to rebuild, build your own equivalent, review it against evidence, close the gaps, and repeat until a written 100% checklist passes.",
   "type": "module",
   "main": "index.js",

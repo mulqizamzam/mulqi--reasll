@@ -2,7 +2,7 @@
 
 Plugin **DeepSeek Harness (DSH)** yang membawa skill *Reverse Engineer Anything with a Self-Learning Loop* ke dalam sesi DSH: teliti produk yang Anda berhak bangun ulang, bangun versi Anda sendiri, review dengan bukti, tutup celahnya, lalu ulangi sampai checklist 100% yang tertulis lulus.
 
-Port dari [Speedrunlab/reverse-engineer-anything-self-learning-loop](https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop) (MIT, Speedrun AI Labs, commit `a0b4f1e`). Seluruh isi sumber dipertahankan byte-per-byte — yang berubah hanya kemasannya.
+Port dari [Speedrunlab/reverse-engineer-anything-self-learning-loop](https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop) (MIT, Speedrun AI Labs, commit `a0b4f1e`). Metodenya dipertahankan utuh; pada 1.0.2 Section 0 diubah menjadi intake opsional, dan empat file ikut disesuaikan (lihat [Kelengkapan sumber](#kelengkapan-sumber)).
 
 `MIT` · target DSH `0.2.1-rc.2` · tanpa dependency · tanpa build step
 
@@ -10,7 +10,7 @@ Port dari [Speedrunlab/reverse-engineer-anything-self-learning-loop](https://git
 | --- | --- |
 | Nama plugin | Mulqi ReaSLL |
 | Nama paket | `mulqi-reasll` |
-| Versi plugin | `1.0.1` |
+| Versi plugin | `1.0.2` |
 | Versi skill sumber | `1.0.1` (upstream) |
 | Nama skill terdaftar | `reverse-engineer-anything-self-learning-loop` |
 
@@ -33,13 +33,13 @@ Port dari [Speedrunlab/reverse-engineer-anything-self-learning-loop](https://git
 
 ## Apa ini
 
-DSH punya sistem *skill*: sekumpulan instruksi yang dimuat agent saat tugasnya cocok. Repo aslinya adalah skill bergaya Claude Code (`SKILL.md` + `references/` + `templates/`). Plugin ini mengemasnya ulang supaya bisa dipasang sebagai bundle DSH, tanpa mengubah satu kata pun dari metodenya.
+DSH punya sistem *skill*: sekumpulan instruksi yang dimuat agent saat tugasnya cocok. Repo aslinya adalah skill bergaya Claude Code (`SKILL.md` + `references/` + `templates/`). Plugin ini mengemasnya ulang supaya bisa dipasang sebagai bundle DSH, dengan satu perubahan metode yang disengaja: Section 0 kini intake opsional, bukan gate otorisasi.
 
 Tiga hal yang perlu dipahami:
 
 1. **Plugin ini tidak menambah tool.** Ia hanya mendaftarkan satu skill ke `ctx.skills`.
 2. **Nama skill berbeda dari nama plugin.** Agent memanggil `reverse-engineer-anything-self-learning-loop`; `mulqi-reasll` adalah nama paket.
-3. **Skill ini gated.** Ia menolak berjalan tanpa otorisasi eksplisit — approver, lingkup, dan lingkungan analisis.
+3. **Intake dianjurkan, bukan wajib.** Skill mencatat target, dasar kewenangan bila ada, batas build, definition of done, mode, dan penanganan data di run ledger. Catatan yang lengkap membuat hasilnya bisa diaudit; ketiadaannya tidak memblokir mulai.
 
 ---
 
@@ -115,15 +115,18 @@ Agent melihat daftar skill beserta deskripsi singkatnya. Kalau Anda meminta hal 
 
 ### Yang perlu Anda siapkan
 
-Skill ini **gated**. Sebelum mulai, siapkan:
+Skill ini **tidak memblokir** Anda sebelum intake lengkap. Yang dianjurkan untuk
+dicatat lebih dulu:
 
 - produk yang Anda berhak bangun ulang;
-- siapa yang menyetujui (nama, peran), independen dari peminta;
+- dasar kewenangan bila ada (milik sendiri, lisensi, atau izin tertulis) — bekerja
+  sendiri? catat diri Anda sebagai approver dan tulis alasannya;
 - lingkup: apa yang masuk dan apa yang tidak;
 - folder kerja yang bisa ditulis;
 - lingkungan analisis terpisah (idealnya VM sekali pakai) untuk langkah live.
 
-Bekerja sendiri? Catat diri Anda sebagai approver dan tulis alasannya. Gate-nya ada supaya otorisasi eksplisit, bukan implisit.
+Yang belum diketahui dicatat sebagai unknown di run ledger, bukan diisi
+dugaan. Intake ada supaya batas kerja eksplisit dan hasilnya bisa diaudit.
 
 ---
 
@@ -170,7 +173,7 @@ Dua salinan isi skill disimpan dengan sengaja, dan perannya berbeda:
 - `assets/` — satu-satunya yang dibaca runtime. `resourceBase` menunjuk ke sini, sehingga link `references/…` dan `templates/…` di badan skill resolve tanpa ditulis ulang.
 - `vendor/upstream/` — snapshot utuh upstream. Tidak dieksekusi, tidak didaftarkan, tidak dijangkau agent. Fungsinya untuk audit dan untuk memakai metode ini di luar DSH.
 
-Keduanya diverifikasi identik byte-per-byte oleh validator.
+Validator memverifikasi keduanya identik satu sama lain. Sembilan dari tiga belas file juga identik byte-per-byte dengan upstream `a0b4f1e`; empat file sengaja diedit lokal (Section 0 menjadi intake opsional) dan snapshot vendor diperbarui bersamaan.
 
 ---
 
@@ -182,12 +185,23 @@ Repositori sumber punya **13 file** pada commit `a0b4f1ecff591100d207ddcc799bcb5
 | --- | --- | --- |
 | executable (dibaca runtime) | 10 | `assets/` + `vendor/upstream/` |
 | reference (non-eksekusi) | 3 | `vendor/upstream/` (+ `LICENSE` di root) |
-| ditransformasi isinya | 0 | — |
+| identik byte-per-byte dengan upstream `a0b4f1e` | 9 | `assets/` + `vendor/upstream/` |
+| divergensi lokal terdokumentasi | 4 | `assets/` + `vendor/upstream/` (lihat di bawah) |
 | dihapus / dikecualikan | 0 | — |
 
 Rincian per file, termasuk sha256 dan alasan perlakuan, ada di [`docs/SOURCE-MANIFEST.md`](docs/SOURCE-MANIFEST.md). Ringkasan keputusannya ada di [`docs/RECONCILIATION.md`](docs/RECONCILIATION.md).
 
-Satu-satunya transformasi terjadi saat baca, bukan saat simpan: `index.js` membuang blok frontmatter YAML di awal `SKILL.md` dan menyuplai metadata yang sama secara programatik. File di disk tetap utuh.
+Empat file diedit secara lokal pada 1.0.2 agar Section 0 tidak lagi memblokir:
+`SKILL.md`, `references/examine.md`, `references/review.md` dan
+`templates/run-ledger.md`. `assets/` dan `vendor/upstream/` menyimpan byte yang
+sama untuk keempat file itu, jadi salinan runtime dan provenance tetap konsisten;
+hash upstream dan hash lokal dicatat berdampingan di
+[`docs/SOURCE-MANIFEST.md`](docs/SOURCE-MANIFEST.md#local-divergence). Sembilan
+file lainnya tetap identik byte-per-byte dengan `a0b4f1e`.
+
+Selain itu, satu transformasi terjadi saat baca, bukan saat simpan: `index.js`
+membuang blok frontmatter YAML di awal `SKILL.md` dan menyuplai metadata yang
+sama secara programatik. File di disk tetap utuh.
 
 ---
 
@@ -221,7 +235,7 @@ Kalau Anda mengubah isi `assets/`, perbarui juga `vendor/upstream/` dan manifest
 | Skill tidak muncul di sesi | Skill didaftarkan saat boot | Mulai sesi baru atau restart aplikasi |
 | `dsh plugin add` menolak, unmet `engines.dsh` | Versi DSH di luar rentang | Perbarui DSH; jangan paksa exemption tanpa memahami risikonya |
 | `--dump-config` menampilkan `dsh-reasll` | Profil masih memuat paket lama | `dsh plugin --profile <nama> remove dsh-reasll`, lalu `add` ulang |
-| Agent memuat skill tapi menolak mulai | Gate otorisasi | Lengkapi approver, lingkup, dan lingkungan analisis |
+| Agent berhenti dan bertanya di tengah jalan | Batas kerja belum tercatat | Isi intake di run ledger (target, kewenangan, batas build, mode) lalu lanjutkan |
 | `npm run check` gagal di bagian hash | `assets/` dan `vendor/upstream/` berbeda | Sinkronkan keduanya, atau perbarui manifest bila perubahan memang disengaja |
 
 ---

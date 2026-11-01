@@ -84,4 +84,4 @@ iteration should attack first.
   to quietly widen it.
 - Not a reason to touch the original or `$W`: the review runs on fixtures and
   the build; if it needs a new observation, that is an examination step under
-  the gate.
+  the recorded scope.

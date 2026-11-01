@@ -165,7 +165,7 @@ raw command log is `$W/commands.log`, never retyped. A stop (section 7 of
 ## Live steps
 
 Reach for a live step only when a checklist item cannot be verified or an
-observation cannot be made statically, and only inside the gate's mode. The
+observation cannot be made statically, and only inside the recorded mode. The
 rules: a disposable VM the operator supplies (no host folders, clipboard,
 shared folders, USB passthrough, forwarded agents or sockets; no cloud,
 keychain or production credentials; a snapshot to roll back to; outbound

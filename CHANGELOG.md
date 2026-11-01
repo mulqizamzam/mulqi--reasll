@@ -2,6 +2,41 @@
 
 All notable changes to the Mulqi ReaSLL plugin.
 
+## 1.0.2 — 2026-11-01
+
+Section 0 is no longer a blocking authorisation gate. It is an optional intake:
+the same questions are asked and recorded in the run ledger, but a missing or
+partial answer no longer stops work before it starts.
+
+### Changed
+
+- `SKILL.md`: Section 0 retitled `INTAKE AND SCOPE (RECOMMENDED)`. The clause
+  forbidding tools before intake is gone; `Authority record` becomes `Authority,
+  when you have one` and explicitly allows recording yourself as approver; the
+  `compatibility` line no longer requires an independent approver; the
+  description reads `authorisation-aware` instead of `authorisation-gated`.
+- `references/examine.md`: `the gate's mode` becomes `the recorded mode`.
+- `references/review.md`: `under the gate` becomes `under the recorded scope`.
+- `templates/run-ledger.md`: the `intake:` line accepts `none recorded` plus the
+  reason.
+- `index.js` and `package.json`: the runtime description no longer advertises
+  the skill as authorisation-gated, and the version is now 1.0.2.
+  `BUNDLED_SKILL_RANK` (600) and the candidate `rank` field stay: the registry
+  rejects a candidate whose `rank` is not a finite number.
+- `tests/manifest.test.js` and `scripts/validate.mjs`: the pinned version is
+  1.0.2.
+- `README.md`, `HOWTOUSE.md`, `docs/RECONCILIATION.md`, `docs/SOURCE-MANIFEST.md`,
+  `docs/source-manifest.json`: document the optional intake and the local
+  divergence from upstream instead of claiming full byte-identity.
+
+### Provenance
+
+The four edited files were copied to `vendor/upstream/` as well, so the executed
+copy and the provenance copy stay byte-identical to each other and both match
+the manifest hashes. The claim of byte-identity with upstream `a0b4f1e` now
+covers the nine files this release did not touch; the four diverged files are
+listed with both upstream and local hashes in `docs/SOURCE-MANIFEST.md`.
+
 ## 1.0.1 — 2026-11-01
 
 Repairs the byte-identity claim that 1.0.0 broke, without touching upstream text.

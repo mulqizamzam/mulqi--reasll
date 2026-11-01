@@ -46,7 +46,7 @@ test('manifest declares no exclusions and no unresolved items', async () => {
 test('package identity matches the spec', async () => {
   const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
   assert.equal(pkg.name, 'mulqi-reasll')
-  assert.equal(pkg.version, '1.0.1')
+  assert.equal(pkg.version, '1.0.2')
   assert.equal(pkg.dsh.bundle.patch, './cordis.patch.yml')
   assert.match(pkg.engines.dsh, /0\.2\.1-rc\.2/)
 

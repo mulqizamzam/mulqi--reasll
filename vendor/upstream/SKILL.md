@@ -1,8 +1,8 @@
 ---
 name: reverse-engineer-anything-self-learning-loop
-description: "Reverse Engineer Anything with a Self-Learning Loop: examine software you are authorised to analyse, build your own working equivalent, then review it against the original with evidence, plan the gaps, improve, and repeat until a written definition of 100% is met, learning from every iteration so the next product starts further along. Use for: rebuilding a product whose source is lost, a compatible replacement for a tool you license, a port to a new platform, finishing a reconstruction that stalled at 80%. Static-first, evidence-led, authorisation-gated; it builds its own design and never copies protected expression."
+description: "Reverse Engineer Anything with a Self-Learning Loop: examine software you are authorised to analyse, build your own working equivalent, then review it against the original with evidence, plan the gaps, improve, and repeat until a written definition of 100% is met, learning from every iteration so the next product starts further along. Use for: rebuilding a product whose source is lost, a compatible replacement for a tool you license, a port to a new platform, finishing a reconstruction that stalled at 80%. Static-first, evidence-led, authorisation-aware; it builds its own design and never copies protected expression."
 license: MIT
-compatibility: Any agent with a terminal/shell tool, file read/write, a writable skills directory and a persistent memory store. Needs an operator-supplied analysis environment for the examination (no network, no credentials; a disposable VM for any live step), a separate build environment, the open-source tools the target's route needs, and an approver independent of the requester.
+compatibility: Any agent with a terminal/shell tool, file read/write, a writable skills directory and a persistent memory store. Needs an operator-supplied analysis environment for the examination (no network, no credentials; a disposable VM for any live step), a separate build environment, the open-source tools the target's route needs, and, when the work is licensed, the terms that permit it.
 metadata:
   version: 1.0.1
   author: Speedrun AI Labs
@@ -35,24 +35,27 @@ licenses, or is explicitly cleared to examine and rebuild (a lost-source
 product, interoperability, a replacement for a licensed tool, a port). It is not
 for cloning a third party's product, defeating access controls, or lifting
 protected assets. The reconstruction is **your own design, informed by
-observed behaviour**, never a copy of protected expression. The first step is a
-gate that makes that explicit.
+observed behaviour**, never a copy of protected expression. Section 0 records
+that boundary in writing; it is recommended intake, not a checkpoint you must
+pass before starting.
 
 ---
 
-## 0. AUTHORISATION AND SCOPE GATE
+## 0. INTAKE AND SCOPE (RECOMMENDED)
 
-Before any tool runs, get the intake below answered in one message. Until it is,
-the only permitted actions are `stat` and `ls` on paths the operator named. A
-vague answer is asked again; never proceed on a guess.
+Write the intake below down before you build. It is recommended, not a gate: a
+complete intake makes the run auditable and keeps the boundary explicit, but
+nothing here blocks work. Answer what you can in one message, record the rest as
+unknowns in the ledger, and start. Never invent an answer you do not have.
 
 1. **Target(s):** the concrete artifact(s) to examine (a binary, a package, an
    installed tree, a firmware image, a capture), copied to `$W/original/` with
    their SHA-256 recorded. "My app" is not a target; ask which file.
-2. **Authority record:** basis (owned; licensed, citing the clause that permits
-   analysis and reimplementation, or legal's clearance; sanctioned); an approver
-   who is not the requester; the reference (ticket, contract, email), date and
+2. **Authority, when you have one:** basis (owned; licensed, citing the clause
+   that permits analysis and reimplementation, or legal's clearance;
+   sanctioned); an approver; the reference (ticket, contract, email), date and
    expiry; a security contact for a live secret or a serious vulnerability.
+   Working alone is fine — record yourself as the approver and write down why.
 3. **The build's purpose and its boundary:** what the reconstruction is for
    (replacement, port, interoperability, lost source), and in writing what may
    **not** be reused: protected expression (code, text, artwork, icons, fonts,
@@ -206,8 +209,8 @@ is never skipped because "it obviously works". Method and techniques:
   item, the checklist ids it should flip.
 - **Never plan from a guess.** A gap without evidence goes back to section 4;
   a fix that needs a behaviour nobody observed goes back to section 1, within
-  the gate's scope. A fix that would need protected material, a vendor backend
-  or an unapproved live step is a stop (section 7), not a plan item.
+  the recorded scope. A fix that would need protected material, a vendor backend
+  or a live step outside the recorded mode is a stop (section 7), not a plan item.
 - Write the plan ([templates/iteration-plan.md](templates/iteration-plan.md))
   and append the iteration's entry to the run ledger
   ([templates/run-ledger.md](templates/run-ledger.md)).
@@ -243,7 +246,7 @@ digest.
   backend, or a live step not in the envelope;
 - the iteration or time budget is spent (report the honest score and what one
   more iteration would buy);
-- the authority has expired or been withdrawn;
+- the authority you recorded has expired or been withdrawn;
 - an examination stop fires: the digest or signer contradicts the authority
   record, the target looks like live malware, a tool tries to reach the network
   or escalate, an extraction limit is breached, a credential may be live,

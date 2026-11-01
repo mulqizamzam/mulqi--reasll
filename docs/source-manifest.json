@@ -1,6 +1,6 @@
 {
   "schema": "mulqi-reasll/source-manifest@1",
-  "generatedFor": "Mulqi ReaSLL 1.0.1 (DeepSeek Harness 0.2.1-rc.2)",
+  "generatedFor": "Mulqi ReaSLL 1.0.2 (DeepSeek Harness 0.2.1-rc.2)",
   "upstream": {
     "repository": "https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop",
     "commit": "a0b4f1ecff591100d207ddcc799bcb5bb769f031",
@@ -19,20 +19,26 @@
   "items": [
     {
       "path": "SKILL.md",
-      "sha256": "9a04075a36586e5147f7cb1e43a2e75ab7405a7704f3327a6f7053b1484bb3be",
-      "bytes": 19840,
+      "sha256": "ba6f05a1b9d85b569e426940e789543a60fbbfee57f5d1cff9aa520f6d7d5ac8",
+      "bytes": 20116,
       "disposition": "executable",
-      "targets": ["assets/SKILL.md", "vendor/upstream/SKILL.md"],
-      "modifications": "None on disk. At runtime index.js strips the leading YAML frontmatter and supplies the same metadata programmatically, so the model reads prose only.",
+      "targets": [
+        "assets/SKILL.md",
+        "vendor/upstream/SKILL.md"
+      ],
+      "modifications": "Local divergence from upstream a0b4f1e: section 0 is an optional intake instead of a blocking authorisation gate (title, framing, authority wording, compatibility line and description string adjusted). assets/ and vendor/upstream/ hold the same diverged bytes; the upstream blob is quoted in docs/SOURCE-MANIFEST.md.",
       "reason": "Primary instruction body. assets/ is the runtime copy; vendor/ is the provenance copy."
     },
     {
       "path": "references/examine.md",
-      "sha256": "7ef9ae34dfc8722f700d1d7cff4137df108af6de3190695370795a393a43b2a1",
-      "bytes": 11756,
+      "sha256": "75d5d425d4fec2fd602b3deba747f0e86345cfc9cb2319e36fbb781a52c873b1",
+      "bytes": 11758,
       "disposition": "executable",
-      "targets": ["assets/references/examine.md", "vendor/upstream/references/examine.md"],
-      "modifications": "None.",
+      "targets": [
+        "assets/references/examine.md",
+        "vendor/upstream/references/examine.md"
+      ],
+      "modifications": "Local divergence from upstream a0b4f1e: one phrase reworded from \"the gate's mode\" to \"the recorded mode\" to match the optional intake.",
       "reason": "Cited by SKILL.md; resolved through resourceBase at assets/."
     },
     {
@@ -40,7 +46,10 @@
       "sha256": "69c7a0f951ed7f67fcd6f8a44e1f8127022c38751942e680df1e9130db55c13d",
       "bytes": 3739,
       "disposition": "executable",
-      "targets": ["assets/references/fix-recipes.md", "vendor/upstream/references/fix-recipes.md"],
+      "targets": [
+        "assets/references/fix-recipes.md",
+        "vendor/upstream/references/fix-recipes.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; resolved through resourceBase at assets/."
     },
@@ -49,7 +58,10 @@
       "sha256": "1cf68e811b3ac8f8bb76e89543e9c7d0eb89a0796b1b381fd95ff042251dea8f",
       "bytes": 6457,
       "disposition": "executable",
-      "targets": ["assets/references/learning-loop.md", "vendor/upstream/references/learning-loop.md"],
+      "targets": [
+        "assets/references/learning-loop.md",
+        "vendor/upstream/references/learning-loop.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; resolved through resourceBase at assets/."
     },
@@ -58,17 +70,23 @@
       "sha256": "475258fb076629722966e71dd760658d77737598ec552485741698ee2d8f4419",
       "bytes": 6046,
       "disposition": "executable",
-      "targets": ["assets/references/parity-checklist.md", "vendor/upstream/references/parity-checklist.md"],
+      "targets": [
+        "assets/references/parity-checklist.md",
+        "vendor/upstream/references/parity-checklist.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; resolved through resourceBase at assets/."
     },
     {
       "path": "references/review.md",
-      "sha256": "41cd6ea8beab67c968029087bdd0fcbf5cdb9197ca9867ee2cb97b70db640f19",
-      "bytes": 4630,
+      "sha256": "e7a7d1f21baf751d47a5b6efab60a88d87eae5a8cf40fdc90e3617854abd38e1",
+      "bytes": 4640,
       "disposition": "executable",
-      "targets": ["assets/references/review.md", "vendor/upstream/references/review.md"],
-      "modifications": "None.",
+      "targets": [
+        "assets/references/review.md",
+        "vendor/upstream/references/review.md"
+      ],
+      "modifications": "Local divergence from upstream a0b4f1e: one phrase reworded from \"under the gate\" to \"under the recorded scope\" to match the optional intake.",
       "reason": "Cited by SKILL.md; resolved through resourceBase at assets/."
     },
     {
@@ -76,7 +94,10 @@
       "sha256": "c93562ccde019a7542b51041f0541cbfa3102332e1fe146d746d8eaa45b8f50c",
       "bytes": 922,
       "disposition": "executable",
-      "targets": ["assets/templates/gap-report.md", "vendor/upstream/templates/gap-report.md"],
+      "targets": [
+        "assets/templates/gap-report.md",
+        "vendor/upstream/templates/gap-report.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; the agent copies it into the working project."
     },
@@ -85,7 +106,10 @@
       "sha256": "8b6caed3307a26d3f195485d50430e7775225ac98f774d9a0c38f2df78266d72",
       "bytes": 607,
       "disposition": "executable",
-      "targets": ["assets/templates/iteration-plan.md", "vendor/upstream/templates/iteration-plan.md"],
+      "targets": [
+        "assets/templates/iteration-plan.md",
+        "vendor/upstream/templates/iteration-plan.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; the agent copies it into the working project."
     },
@@ -94,17 +118,23 @@
       "sha256": "5cf78ee685b62b246cd7ef5083b4e814b450728ad6ae93d8584ff68c7941cd56",
       "bytes": 1059,
       "disposition": "executable",
-      "targets": ["assets/templates/parity-checklist.md", "vendor/upstream/templates/parity-checklist.md"],
+      "targets": [
+        "assets/templates/parity-checklist.md",
+        "vendor/upstream/templates/parity-checklist.md"
+      ],
       "modifications": "None.",
       "reason": "Cited by SKILL.md; defines the written 100% checklist the loop must pass."
     },
     {
       "path": "templates/run-ledger.md",
-      "sha256": "76a6eff0360cfdbaf1b6ddebdfb783099a3cfe27ab671608252dfa6249010b8a",
-      "bytes": 1283,
+      "sha256": "a279190c949c9a049528033fe14fab7634cde8f41743bfde95d2f9ea9792ebb0",
+      "bytes": 1314,
       "disposition": "executable",
-      "targets": ["assets/templates/run-ledger.md", "vendor/upstream/templates/run-ledger.md"],
-      "modifications": "None.",
+      "targets": [
+        "assets/templates/run-ledger.md",
+        "vendor/upstream/templates/run-ledger.md"
+      ],
+      "modifications": "Local divergence from upstream a0b4f1e: the intake line accepts \"none recorded\" plus a reason, so a run without an authority record still has a truthful ledger entry.",
       "reason": "Cited by SKILL.md; records iteration evidence."
     },
     {
@@ -112,7 +142,9 @@
       "sha256": "2202775d9b467e6a32d5a26e797613c70be6067f9b88ec9456988499d8c716e6",
       "bytes": 7809,
       "disposition": "reference",
-      "targets": ["vendor/upstream/README.md"],
+      "targets": [
+        "vendor/upstream/README.md"
+      ],
       "modifications": "None. Not copied into assets/ and not registered with ctx.skills.",
       "reason": "Describes the Claude-Code-style skill install, which does not apply to DSH. Kept verbatim as provenance; the port is documented in the root README.md and HOWTOUSE.md instead."
     },
@@ -121,7 +153,9 @@
       "sha256": "4c58ee54b6c637ad60b262600adfebc398712cc274bbdfbcef1d78950d76fec9",
       "bytes": 1266,
       "disposition": "reference",
-      "targets": ["vendor/upstream/CHANGELOG.md"],
+      "targets": [
+        "vendor/upstream/CHANGELOG.md"
+      ],
       "modifications": "None. The port keeps its own root CHANGELOG.md and quotes upstream history there.",
       "reason": "Release history of the source skill, not of the plugin. Retained verbatim as provenance."
     },
@@ -130,7 +164,10 @@
       "sha256": "77708ce90affbd4ced3e3a50b393479c8dff9b3a19c93bc6490efe9a1002b96a",
       "bytes": 1081,
       "disposition": "reference",
-      "targets": ["LICENSE", "vendor/upstream/LICENSE"],
+      "targets": [
+        "LICENSE",
+        "vendor/upstream/LICENSE"
+      ],
       "modifications": "None; the root LICENSE is byte-identical.",
       "reason": "MIT licence of the source skill. Must ship with the derived work."
     }
@@ -146,7 +183,7 @@
     },
     {
       "path": "package.json",
-      "role": "Package manifest: name mulqi-reasll, version 1.0.1, dsh.bundle.patch, engines.dsh."
+      "role": "Package manifest: name mulqi-reasll, version 1.0.2, dsh.bundle.patch, engines.dsh."
     },
     {
       "path": "HOWTOUSE.md",

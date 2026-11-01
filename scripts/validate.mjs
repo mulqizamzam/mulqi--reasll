@@ -169,7 +169,7 @@ async function main() {
   // --- 6. package, patch and skill body agree --------------------------------
   const pkg = JSON.parse(await readFile(join(ROOT, 'package.json'), 'utf8'))
   if (pkg.name !== 'mulqi-reasll') fail(`package.json name must be mulqi-reasll, got ${pkg.name}`)
-  if (pkg.version !== '1.0.1') fail(`package.json version must be 1.0.1, got ${pkg.version}`)
+  if (pkg.version !== '1.0.2') fail(`package.json version must be 1.0.2, got ${pkg.version}`)
   if (!pkg.engines?.dsh) fail('package.json must declare engines.dsh')
   if (!pkg.dsh?.bundle?.patch) fail('package.json must declare dsh.bundle.patch')
 

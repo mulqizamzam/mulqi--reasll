@@ -1,4 +1,4 @@
-# Reconciliation Report — Mulqi ReaSLL 1.0.1
+# Reconciliation Report — Mulqi ReaSLL 1.0.2
 
 Laporan ini menjawab satu pertanyaan: **apakah setiap item di repositori sumber
 sudah dipertanggungjawabkan?** Sumbernya adalah
@@ -15,11 +15,12 @@ Jalankan `npm run check` untuk mereproduksinya.
 | Kategori | Jumlah |
 | --- | --- |
 | Item sumber ditemukan | 13 |
-| Item dipertahankan byte-per-byte | 13 |
+| Item dipertahankan byte-per-byte | 9 |
+| Item dengan divergensi lokal yang terdokumentasi | 4 |
 | Item upstream dieksekusi saat runtime (`assets/`) | 10 |
 | File runtime tambahan (authored, `assets/`) | 1 |
 | Item referensi non-eksekusi (`vendor/upstream/`) | 13 |
-| Item ditransformasi isinya | 0 |
+| Item ditransformasi isinya | 4 (lihat bagian 3.2) |
 | Item dihapus / dikecualikan | 0 |
 | Item belum terselesaikan | 0 |
 
@@ -61,21 +62,45 @@ tersebut. Repositori sumber memang hanya berisi skill Markdown.
 ### 3.1 Dieksekusi saat runtime — 10 item upstream + 1 authored
 
 Kesepuluh file ini disalin ke `assets/` dan didaftarkan lewat `ctx.skills`.
-Isinya **identik byte-per-byte** dengan `vendor/upstream/`; validator
-membandingkan sha256 keduanya.
+`assets/` dan `vendor/upstream/` **identik satu sama lain**; validator
+membandingkan sha256 keduanya. Untuk sembilan dari sepuluh file, isinya juga
+identik byte-per-byte dengan upstream `a0b4f1e`. Empat file diedit secara lokal
+(lihat 3.2), dan karena itu snapshot vendor untuk keempat file tersebut tidak
+lagi sama dengan upstream.
 
-| File | Bytes | Peran |
-| --- | --- | --- |
-| `SKILL.md` | 19840 | Badan instruksi utama |
-| `references/examine.md` | 11756 | Fase pemeriksaan |
-| `references/fix-recipes.md` | 3739 | Resep perbaikan |
-| `references/learning-loop.md` | 6457 | Mekanisme loop belajar |
-| `references/parity-checklist.md` | 6046 | Definisi paritas |
-| `references/review.md` | 4630 | Review berbasis bukti |
-| `templates/gap-report.md` | 922 | Template laporan celah |
-| `templates/iteration-plan.md` | 607 | Template rencana iterasi |
-| `templates/parity-checklist.md` | 1059 | Template checklist 100% |
-| `templates/run-ledger.md` | 1283 | Template ledger iterasi |
+| File | Bytes | Identik upstream? | Peran |
+| --- | --- | --- | --- |
+| `SKILL.md` | 20116 | tidak (lihat 3.2) | Badan instruksi utama |
+| `references/examine.md` | 11758 | tidak (lihat 3.2) | Fase pemeriksaan |
+| `references/fix-recipes.md` | 3739 | ya | Resep perbaikan |
+| `references/learning-loop.md` | 6457 | ya | Mekanisme loop belajar |
+| `references/parity-checklist.md` | 6046 | ya | Definisi paritas |
+| `references/review.md` | 4640 | tidak (lihat 3.2) | Review berbasis bukti |
+| `templates/gap-report.md` | 922 | ya | Template laporan celah |
+| `templates/iteration-plan.md` | 607 | ya | Template rencana iterasi |
+| `templates/parity-checklist.md` | 1059 | ya | Template checklist 100% |
+| `templates/run-ledger.md` | 1314 | tidak (lihat 3.2) | Template ledger iterasi |
+
+### 3.2 Divergensi lokal yang disengaja — 4 file
+
+Versi 1.0.2 menghapus kewajiban "Gate Otorisasi". Section 0 pada `SKILL.md`
+sekarang adalah intake yang **dianjurkan, tidak memblokir**: catatan target,
+dasar kewenangan bila ada, batas build, definition of done, mode dan penanganan
+data tetap diminta, tetapi ketiadaannya tidak menghentikan pekerjaan. Empat file
+upstream ikut disesuaikan agar konsisten dengan perubahan itu, dan
+`vendor/upstream/` diperbarui bersamaan sehingga salinan yang dieksekusi dan
+salinan provenance tetap sama persis satu sama lain.
+
+| File | Upstream bytes | Lokal bytes | Perubahan |
+| --- | --- | --- | --- |
+| `SKILL.md` | 19840 | 20116 | Section 0 menjadi `INTAKE AND SCOPE (RECOMMENDED)`; larangan memakai tool sebelum intake dihapus; `Authority record` menjadi `Authority, when you have one` (boleh mencatat diri sendiri sebagai approver); `the gate's scope` → `the recorded scope`; `the authority has expired` → `the authority you recorded has expired`; deskripsi `authorisation-gated` → `authorisation-aware`; baris `compatibility` tidak lagi mewajibkan approver independen. |
+| `references/examine.md` | 11756 | 11758 | `the gate's mode` → `the recorded mode`. |
+| `references/review.md` | 4630 | 4640 | `under the gate` → `under the recorded scope`. |
+| `templates/run-ledger.md` | 1283 | 1314 | Baris `intake:` menerima `none recorded` beserta alasannya. |
+
+Hash upstream dan hash lokal untuk keempat file dicatat berdampingan di
+[`SOURCE-MANIFEST.md`](./SOURCE-MANIFEST.md#local-divergence). Sembilan file
+lainnya tetap byte-identik dengan `a0b4f1e`.
 
 Selain kesepuluh file di atas, `assets/references/dsh-notes.md` adalah file
 **authored** (2683 byte) yang ditulis untuk port ini. Ia tidak punya padanan di
@@ -100,7 +125,9 @@ memuat seluruh instruksi.
 
 ## 4. Adaptasi yang dilakukan
 
-Tidak ada konten sumber yang diubah kata-katanya. Adaptasi hanya pada kemasan.
+Sebagian besar konten sumber tidak diubah kata-katanya; adaptasi kemasan
+mendominasi. Pengecualiannya adalah empat file pada 3.2, yang diedit untuk
+menjadikan intake Section 0 opsional.
 
 | Aspek sumber | Perlakuan di plugin | Alasan |
 | --- | --- | --- |
@@ -120,7 +147,7 @@ Tidak mengandung konten upstream.
 | --- | --- |
 | `index.js` | Plugin Cordis; registrasi provider skill |
 | `cordis.patch.yml` | Layer patch bundle |
-| `package.json` | Manifest paket `mulqi-reasll` 1.0.1 |
+| `package.json` | Manifest paket `mulqi-reasll` 1.0.2 |
 | `HOWTOUSE.md` | Panduan pasang dan pakai |
 | `README.md` | Ikhtisar port |
 | `CHANGELOG.md` | Riwayat rilis plugin |
@@ -208,13 +235,15 @@ Tidak ada yang memblokir. Dua catatan yang perlu diketahui:
    `mulqi-reasll`. Ini disengaja: nama skill adalah bagian dari konten sumber
    dan dipertahankan demi kesetiaan. Pengguna memanggil skill lewat nama
    panjangnya, bukan lewat nama plugin.
-2. **Versi ganda.** `metadata.version` = `1.0.1` (rilis skill upstream),
-   `metadata.plugin.version` = `1.0.1` (kemasan DSH). Keduanya benar untuk
-   domainnya masing-masing dan tidak saling menggantikan.
-
-Di luar itu, tidak ada perbedaan perilaku yang diketahui antara skill sumber dan
-skill yang dimuat plugin ini: badan instruksi, referensi, dan template yang
-dibaca model identik byte-per-byte dengan upstream.
+2. **Versi ganda.** `metadata.version` = `1.0.1` (versi instruksi, diturunkan
+   dari rilis skill upstream), `metadata.plugin.version` = `1.0.2` (kemasan
+   DSH). Keduanya benar untuk domainnya masing-masing dan tidak saling
+   menggantikan.
+3. **Divergensi lokal pada 4 file.** Badan instruksi, `references/examine.md`,
+   `references/review.md` dan `templates/run-ledger.md` tidak identik
+   byte-per-byte dengan upstream `a0b4f1e`; perbedaannya hanya pada penghapusan
+   kewajiban gate otorisasi dan perbaikan istilah yang mengikutinya, seperti
+   dirinci di 3.2. Enam file runtime lainnya tetap identik byte-per-byte.
 
 ---
 

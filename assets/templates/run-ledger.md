@@ -4,7 +4,7 @@ Append-only. Each entry starts with `prev:` and the SHA-256 of this file as it s
 
 ## Entry 1
 prev: genesis
-intake: <target(s) and digests; authority basis, approver, reference, expiry, security contact; purpose and boundary (may not reuse / may reuse); mode; data handling; $W, $B, budgets, stop conditions>
+intake: <target(s) and digests; authority basis, approver, reference, expiry, security contact — or "none recorded" and why; purpose and boundary (may not reuse / may reuse); mode; data handling; $W, $B, budgets, stop conditions>
 skill: reverse-engineer-anything-self-learning-loop <version>, SKILL.md SHA-256 <digest>
 examination: preflight results; original name, size, digests of source and copy; analyst; host
 checklist: version 1 signed by <operator>, <date>, <must total> must-haves

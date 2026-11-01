@@ -1,6 +1,6 @@
 # HOWTOUSE — Mulqi ReaSLL
 
-Panduan pemasangan dan pemakaian plugin **Mulqi ReaSLL** (`mulqi-reasll` v1.0.1)
+Panduan pemasangan dan pemakaian plugin **Mulqi ReaSLL** (`mulqi-reasll` v1.0.2)
 di DeepSeek Harness **0.2.1-rc.2**.
 
 Plugin ini tidak menambah tool, tombol, atau perintah baru. Ia mendaftarkan satu
@@ -101,17 +101,18 @@ Nama skill yang terdaftar adalah
 
 ## 4. Yang harus Anda siapkan sebelum mulai
 
-Skill ini **gated**: ia menolak berjalan tanpa otorisasi eksplisit. Siapkan
-sebelum memanggilnya:
+Skill ini **tidak menolak berjalan** sebelum intake lengkap. Intake dianjurkan
+karena membuat hasil bisa diaudit, jadi catat sedapat mungkin:
 
 1. Produk yang Anda berhak bangun ulang.
-2. Approver: nama dan peran, independen dari peminta.
+2. Dasar kewenangan bila ada: milik sendiri, lisensi, atau izin tertulis. Bekerja
+   sendiri? Catat diri Anda sebagai approver dan tulis alasannya.
 3. Lingkup: apa yang masuk dan apa yang tidak.
 4. Folder kerja yang bisa ditulis.
 5. Lingkungan analisis terpisah (idealnya VM sekali pakai) untuk langkah live.
 
-Bekerja sendiri? Catat diri Anda sebagai approver dan tulis alasannya. Gate-nya
-ada supaya otorisasi bersifat eksplisit, bukan diasumsikan.
+Bagian yang belum Anda ketahui dicatat sebagai unknown di run ledger, bukan
+diisi dugaan.
 
 ---
 
@@ -143,10 +144,13 @@ Ini penting dan disengaja:
 - `SKILL.md` dan seluruh `references/`/`templates/` adalah **materi rujukan**.
   Membacanya tidak menjalankan apa pun.
 - `vendor/upstream/` adalah **provenance read-only**. Tidak pernah dieksekusi
-  dan tidak pernah didaftarkan ke registry skill. Isinya identik byte-per-byte
-  dengan upstream commit `a0b4f1e`.
+  dan tidak pernah didaftarkan ke registry skill. Sembilan dari tiga belas
+  file identik byte-per-byte dengan upstream commit `a0b4f1e`; empat file
+  (`SKILL.md`, `references/examine.md`, `references/review.md`,
+  `templates/run-ledger.md`) memuat divergensi lokal yang terdokumentasi di
+  `docs/SOURCE-MANIFEST.md` karena Section 0 kini berupa intake opsional.
 - `assets/` adalah satu-satunya salinan yang dibaca saat runtime, dan isinya
-  identik byte-per-byte dengan `vendor/upstream/` — diverifikasi otomatis oleh
+  identik dengan `vendor/upstream/` — diverifikasi otomatis oleh
   `scripts/validate.mjs`.
 
 ---
@@ -194,10 +198,11 @@ dsh plugin --profile web remove dsh-reasll
 dsh plugin --profile web add github:mulqizamzam/mulqi--reasll
 ```
 
-**Agent memuat skill tapi menolak mulai.**
+**Agent berhenti dan bertanya di tengah jalan.**
 
-Itu gate otorisasi, bukan bug. Lengkapi approver, lingkup, dan lingkungan
-analisis seperti bagian 4.
+Bukan bug: batas kerjanya belum tercatat. Isi intake di run ledger (target,
+dasar kewenangan bila ada, batas build, mode, penanganan data) seperti bagian 4,
+lalu lanjutkan.
 
 **Ingin memakai metode ini tanpa plugin DSH.**
 

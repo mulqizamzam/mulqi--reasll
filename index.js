@@ -4,8 +4,10 @@
  * https://github.com/Speedrunlab/reverse-engineer-anything-self-learning-loop
  * (MIT, Speedrun AI Labs, commit a0b4f1e).
  *
- * The instruction body and its references/templates are shipped verbatim under
- * assets/; vendor/upstream/ keeps the complete upstream snapshot read-only.
+ * The instruction body and its references/templates are shipped under assets/
+ * with a documented local divergence in four files (section 0 of SKILL.md is an
+ * optional intake rather than a blocking gate); vendor/upstream/ keeps the same
+ * diverged bytes so the provenance copy matches what is executed.
  * This module only registers the skill with `ctx.skills` so the agent can load
  * it on demand. It adds no tools and overrides no host instruction.
  */
@@ -33,7 +35,7 @@ const BUNDLED_SKILL_RANK = 600
 
 /** Routing description carried over from the source skill frontmatter. */
 const DESCRIPTION =
-  'Reverse Engineer Anything with a Self-Learning Loop: examine software you are authorised to analyse, build your own working equivalent, then review it against the original with evidence, plan the gaps, improve, and repeat until a written definition of 100% is met, learning from every iteration so the next product starts further along. Use for: rebuilding a product whose source is lost, a compatible replacement for a tool you license, a port to a new platform, finishing a reconstruction that stalled at 80%. Static-first, evidence-led, authorisation-gated; it builds its own design and never copies protected expression.'
+  'Reverse Engineer Anything with a Self-Learning Loop: examine software you are authorised to analyse, build your own working equivalent, then review it against the original with evidence, plan the gaps, improve, and repeat until a written definition of 100% is met, learning from every iteration so the next product starts further along. Use for: rebuilding a product whose source is lost, a compatible replacement for a tool you license, a port to a new platform, finishing a reconstruction that stalled at 80%. Static-first, evidence-led, authorisation-aware; it builds its own design and never copies protected expression.'
 
 /**
  * Metadata carried over from the source skill frontmatter.
@@ -56,7 +58,7 @@ const METADATA = {
   plugin: {
     name: 'mulqi-reasll',
     displayName: 'Mulqi ReaSLL',
-    version: '1.0.1',
+    version: '1.0.2',
   },
 }
 
